@@ -1,37 +1,36 @@
 import { ArrowLeft } from '@tamagui/lucide-icons';
-import { useNavigation } from 'expo-router';
+import { useNavigation, usePathname, useRouter } from 'expo-router';
 import { useEffect } from 'react';
 import { TouchableOpacity } from 'react-native';
-import { getTokens, XStack, Image, Text } from 'tamagui';
-
-import { Header } from '@/components/layout/Header';
+import { getTokens } from 'tamagui';
 
 export function useGenericHeader(title: string) {
   const navigation = useNavigation();
+  const router = useRouter();
+  const pathname = usePathname();
   const tokens = getTokens();
 
   useEffect(() => {
+    const handleBack = () => {
+      if (navigation.canGoBack?.()) {
+        navigation.goBack();
+      } else {
+        router.replace('/dashboard/page');
+      }
+    };
+
     navigation.setOptions({
       title,
       headerTitleAlign: 'left',
       headerLeft: () => (
-        <XStack alignItems="center" gap="$2">
-          <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingLeft: 12 }}>
-            <ArrowLeft size="$2" color="$primary400" />
-          </TouchableOpacity>
-          <XStack alignItems="center" gap="$2">
-            <Image source={require('@/assets/images/icon.png')} style={{ width: 60, height: 40 }} />
-            <Text color="$primary400" fontWeight={300} textTransform="uppercase">
-              affiliates
-            </Text>
-          </XStack>
-        </XStack>
+        <TouchableOpacity onPress={handleBack} style={{ paddingLeft: 12 }}>
+          <ArrowLeft size="$2" color="black" />
+        </TouchableOpacity>
       ),
-      headerRight: () => <Header />,
       headerStyle: {
         backgroundColor: tokens.color.$gray100.val
       },
-      headerTintColor: 'white'
+      headerTintColor: 'black'
     });
-  }, [navigation, title, tokens]);
+  }, [navigation, router, title, tokens]);
 }

@@ -3,8 +3,8 @@ import { AnimationDriver, createFont } from '@tamagui/core';
 import { tokens } from '@tamagui/themes';
 import { themes } from '@tamagui/themes';
 import { createTamagui } from 'tamagui';
-import { system } from './system';
 
+import { system } from './system';
 
 const montserratFont = createFont({
   family: 'Montserrat',

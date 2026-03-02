@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { loadJSON, saveJSON } from '../storage';
-import { AppDispatch } from '../Store';
+import { AppDispatch, AppState } from '../Store';
 
 export type ComplexityLevel = 1 | 2 | 3;
 export type ContrastMode = 'NORMAL' | 'HIGH';
@@ -151,3 +151,9 @@ export const hydratePreferencesFromStorage = () => async (dispatch: AppDispatch)
   const stored = await loadPrefsFromStorage();
   if (stored) dispatch(hydratePreferences(stored));
 };
+
+export const savePreferencesToStorage =
+  () => async (dispatch: AppDispatch, getState: () => AppState) => {
+    const prefs = getState().preferences;
+    await savePrefsToStorage(prefs);
+  };

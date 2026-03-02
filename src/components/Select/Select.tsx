@@ -92,6 +92,8 @@ export const Select = forwardRef<TamaguiElement, SelectProps>(
       iconAfter: IconAfter,
       placeholder,
       options,
+      value,
+      onValueChange,
       ...props
     },
     ref
@@ -99,7 +101,8 @@ export const Select = forwardRef<TamaguiElement, SelectProps>(
     return (
       <StyledSelectWrapper variant={variant}>
         {Icon && <Icon size={20} color={iconColor} style={{ marginRight: 10 }} />}
-        <TamaguiSelect {...props}>
+
+        <TamaguiSelect {...props} value={value as any} onValueChange={onValueChange as any}>
           <StyledSelectTrigger variant={variant} ref={ref}>
             <TamaguiSelect.Value placeholder={placeholder} />
             {IconAfter && (
@@ -123,9 +126,7 @@ export const Select = forwardRef<TamaguiElement, SelectProps>(
               <TamaguiSelect.Group>
                 {options.map((option, index) => (
                   <TamaguiSelect.Item index={index} key={option.value} value={option.value}>
-                    <TamaguiSelect.ItemText
-                      fontWeight={props.value === option.value ? '800' : '400'}
-                    >
+                    <TamaguiSelect.ItemText fontWeight={value === option.value ? '800' : '400'}>
                       {option.label}
                     </TamaguiSelect.ItemText>
                   </TamaguiSelect.Item>

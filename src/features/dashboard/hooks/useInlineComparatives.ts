@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { ListInlineComparativesUseCase } from '../useCases/ListInlineComparativesUseCase';
-
 import { InsightMockRepository } from '@/infra/mock/InsightMockRepository';
+
+import { ListInlineComparativesUseCase } from '../useCases/ListInlineComparativesUseCase';
 
 const repo = new InsightMockRepository();
 const useCase = new ListInlineComparativesUseCase(repo);
